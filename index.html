@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link
+      rel="shortcut icon" type="x-icon" href="asset/logo/logoatas.jpg"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gradhifish</title>
+
+  <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap" rel="stylesheet">
+
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- My Style -->
+  <link rel="stylesheet" href="style.css">
+
+  <!--alpine-->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="img/app.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Navbar start -->
+  <nav class="navbar" x-data>
+    <a href="#" class="navbar-logo">Gradhifish.</a>
+
+    <div class="navbar-nav">
+      <a href="#home">Home</a>
+      <a href="#products">Produk Kami</a>
+      <a href="#contact">Lokasi</a>
+    </div>
+
+    <div class="navbar-extra">
+      <a href="#" id="search-button"><i data-feather="search"></i></a>
+      <a href="#" id="shopping-cart-button">
+        <i data-feather="shopping-cart"></i>
+        <span class="quantity-badge" x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+
+      </a>
+      <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+    </div>
+
+    <!-- Search Form start -->
+    <div class="search-form">
+      <input type="search" id="search-box" placeholder="search here...">
+      <label for="search-box"><i data-feather="search"></i></label>
+    </div>
+    <!-- Search Form end -->
+
+    <!-- Shopping Cart start -->
+    <div class="shopping-cart" x-data="$store.cart">
+      <template x-for="(item, index) in items" :key="index">
+        <div class="cart-item">
+          <img :src="`asset/produk/${item.img}`" :alt="item.name">
+          <div class="item-detail">
+            <h3 x-text="item.name"></h3>
+            <div class="item-price">
+              <span x-text="rupiah(item.price)"></span> &times;
+              <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
+              <span x-text="item.quantity"></span>
+              <button id="add" @click="$store.cart.add(item)">&plus;</button> &equals;
+              <span x-text="rupiah(item.total)"></span>
+            </div>
+          </div>
+        </div>
+      </template>
+      <h4 x-show="!items.length" style="margin-top: 1rem;">keranjang kosong</h4>
+      <h4 x-show="items.length">Total: <span x-text="rupiah(total)">
+      </span></h4>
+
+      <div class="form-container">
+        <form action="" id="checkoutForm" x-show="items.length">
+            <h5>Daftar Pesanan</h5>
+            <label for="name">
+              <span>Name</span>
+              <input type="text" name="name" id="name" placeholder="Nama Pelanggan..." required>
+          </label>
+          <label for="email">
+              <span>Email</span>
+              <input type="email" name="email" id="email" placeholder="Email Pelanggan...." required>
+          </label>
+          <label for="phone">
+              <span>Phone</span>
+              <input type="number" name="phone" id="phone" autocomplete="off" placeholder="No handphone..." required>
+          </label>
+          <label for="detail">
+            <span>Detail</span>
+            <input type="detail" name="detail" id="detail"  placeholder="Nama produk(Jumlah),..." required>
+        </label>
+
+            <button class="checkout-button" type="button" id="checkout-button">Checkout</button>
+            <!-- Pesan kesalahan -->
+            <div id="error-message" class="error-message" style="display: none; color: red;">
+              Please fill in all required fields.
+        </form>
+    </div>
+  </div>
+    <!-- Shopping Cart end -->
+
+  </nav>
+  <!-- Navbar end -->
+
+  <!-- Hero Section start -->
+   <div class="layar-penuh">
+    <header id="home">
+        <div class="overlay"></div>
+        <video autoplay muted loop>
+          <source src="asset/sea.mp4.mp4" type="video/mp4" />
+        </video>
+        <div class="intro">
+          <h3>Welcome To Gradhifish</h3>
+          <p>
+            Solusi untuk anda yang hobi dengan ikan hias tanpa isi dompet terkuras 
+          </p>
+          <p>
+            <a href="#aboutus" class="tombol">MORE INFO</a>
+          </p>
+        </div>
+      </header>
+   
+  <!-- Hero Section end -->
+
+  <!-- About Section start -->
+   <main>
+    <section id="aboutus">
+        <div class="layar-dalam">
+          <h3>About Us</h3>
+          <p class="ringkasan">
+            Bingung, mau cari ikan hias yang berkualitas?
+          </p>
+          <div class="konten-isi">
+            <p>
+              Mencari dekorasi akuarium yang indah dan penuh warna? Bosan dengan suasana rumah yang monoton? Ingin memelihara hewan peliharaan yang menenangkan dan tidak ribet?
+                      Jualan ikan hias kami hadir untuk menjawab semua kebutuhan Anda!
+                      Kami menawarkan berbagai jenis ikan hias yang cantik, unik, dan sehat, dari ikan air tawar hingga ikan air laut.
+                      Ikan hias kami tidak hanya indah untuk dilihat, tetapi juga dapat membantu mengurangi stres dan meningkatkan mood Anda.
+                      Selain itu, ikan hias juga dapat menjadi hobi yang menyenangkan dan menguntungkan.
+                      Kami juga menyediakan berbagai macam aksesoris akuarium, seperti filter, pompa, lampu, dan pakan, untuk membantu Anda merawat ikan hias dengan mudah.
+                      Datanglah ke toko kami dan temukan ikan hias impian Anda!
+                      Jangan ragu untuk menghubungi kami jika Anda memiliki pertanyaan atau ingin memesan ikan hias secara online.
+            </p>
+          </div>
+        </div>
+      </section>
+  <!-- About Section end -->
+
+  <!-- support Section start -->
+        <section class="abuabu" id="support">
+          <div class="layar-dalam support">
+            <div>
+              <img src="asset/logo/logoikan.jpeg" />
+              <h6>Ikan Hias</h6>
+              <p>
+                Ikan hias adalah makhluk air yang indah dengan warna-warna cerah dan pola unik, menjadi daya tarik utama dalam akuarium yang mempercantik ruangan dan memberikan ketenangan serta keindahan alamiah.
+              </p>
+            </div>
+            <div>
+              <img src="asset/logo/logo2.png" />
+              <h6>Aquarium</h6>
+              <p>
+                Aquarium adalah wadah transparan yang berfungsi sebagai rumah bagi berbagai jenis ikan dan makhluk air lainnya, diciptakan untuk memperlihatkan keindahan alam bawah laut secara langsung di dalam ruangan.
+              </p>
+            </div>
+            <div>
+              <img src="asset/logo/logo4.webp" />
+              <h6>Aksesoris</h6>
+              <p>
+                Aksesoris aquarium adalah elemen-elemen tambahan seperti tanaman hidup, bebatuan, ornamen, dan sistem filtrasi yang tidak hanya menambah estetika akuarium, tetapi juga menciptakan lingkungan yang sehat dan nyaman bagi ikan dan makhluk air lainnya.
+              </p>
+            </div>
+          </div>
+        </section>
+        <!-- support Section end -->
+
+        <!-- Products Section start -->
+   <div class="card">
+    <input id="ch" type="checkbox">
+   <section class="products" id="products" x-data="home">
+          <h2>Produk kami</h2>
+          <p>Tersedia banyak jenis ikan dan produk lainnya yang tentunya bagus dan menaraik.</p>
+      
+          <div class="row">
+            <template x-for="(item, index)  in items" x-key="index">
+              <div class="product-card">
+                <div class="product-image">
+                  <img :src="`asset/produk/${item.img}`" :alt="item.name">
+                </div>
+                <div class="product-content">
+                    <h2 x-text="item.name"></h2>
+                  </a>
+                  <div class="product-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                  </div>
+                  <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+                </div>
+                <a href="#" @click.prevent="$store.cart.add(item)">
+                  <i class="fas fa-shopping-cart cart-icon"></i>
+                </a>
+              </div>
+            </template>
+          </div>
+          
+        </section>
+  <div class="readmore">
+  <section class="products" id="products" x-data="ikanairlaut">
+    <h1 >Ikan Air Laut</h1>
+    <div class="row">
+      <template x-for="(item, index)  in items" x-key="index">
+        <div class="product-card">
+          <div class="product-image">
+            <img :src="`asset/produk/${item.img}`" :alt="item.name">
+          </div>
+          <div class="product-content">
+              <h2 x-text="item.name"></h2>
+            </a>
+            <div class="product-stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+          </div>
+          <a href="#" @click.prevent="$store.cart.add(item)">
+            <i class="fas fa-shopping-cart cart-icon"></i>
+          </a>
+        </div>
+      </template>
+    </div>
+  </section>
+  <section class="products" id="products" x-data="ikanhias">
+    <h1>Ikan Hias</h1>
+    <div class="row">
+      <template x-for="(item, index)  in items" x-key="index">
+        <div class="product-card">
+          <div class="product-image">
+            <img :src="`asset/produk/${item.img}`" :alt="item.name">
+          </div>
+          <div class="product-content">
+              <h2 x-text="item.name"></h2>
+            </a>
+            <div class="product-stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+          </div>
+          <a href="#" @click.prevent="$store.cart.add(item)">
+            <i class="fas fa-shopping-cart cart-icon"></i>
+          </a>
+        </div>
+      </template>
+    </div>
+  </section>
+  <section class="products" id="products" x-data="alatbantu">
+    <h1>Alat Bantu</h1>
+    <div class="row">
+      <template x-for="(item, index)  in items" x-key="index">
+        <div class="product-card">
+          <div class="product-image">
+            <img :src="`asset/produk/${item.img}`" :alt="item.name">
+          </div>
+          <div class="product-content">
+              <h2 x-text="item.name"></h2>
+            </a>
+            <div class="product-stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <div class="product-price"><span x-text="rupiah(item.price)"></span></div>
+          </div>
+          <a href="#" @click.prevent="$store.cart.add(item)">
+            <i class="fas fa-shopping-cart cart-icon"></i>
+          </a>
+        </div>
+      </template>
+    </div>
+  </section>
+  <br><br>
+  <label for="ch">Tampilkan Lebih Sedikit</label>
+  <br><br><br>
+  </div>
+  <br><br>
+<label for="ch">Tampilkan Lebih Banyak</label>
+<br><br><br>
+</div>
+
+  <!-- Products Section end -->
+
+
+        <!-- quote Section start -->
+        </section>
+        <section class="quote" >
+        <div class="layar-dalam">
+            <p>Aku menyukainya, it's really am very like her. But i don't know whose heart she belongs to. </p>
+        </div>
+        </section>
+        <!-- quote Section wnd -->
+
+        <!-- contact Section start -->
+        <section id="contact">
+        <div class="layar-dalam">
+            <h3>Lokasi</h3>
+            <div class="contact">
+                <div class="row">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126715.79465803024!2d110.41706520000002!3d-7.024729800000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b4d3f0d024d%3A0x1e0432b9da5cb9f2!2sSemarang%2C%20Semarang%20City%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1718516955595!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="map"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- contact Section end -->
+
+        <!-- blog Section start -->
+        <section class="abuabu" id="blog">
+          <div class="layar-dalam">
+              <h3>Kotak review</h3>
+              <p class="ringkasan">
+              Curahkan saran, kritik, dan apresiasi kalian terhadap toko kami, agar kami tahu apa saja yang menjadi kepuasan kalian terhadap toko kami. Karena kepuasan kalian adalah bahagia kami
+              </p>
+              <div class="blog">
+              <div class="area">
+                  <div
+                  class="gambar"
+                  style="background-image: url('asset/produk/ikanhias10.jpg')"
+                  ></div>
+                  <div class="text">
+                  <article>
+                      <h4><a href="#">Boss Yudhis</a></h4>
+                      <p>
+                      Ikannya bagus dan cantik, pada sehat semua... toko bersih dan lengkap, semua kebutuhan aquarium ada,  semoga awet terus
+                      </p>
+                  </article>
+                  </div>
+              </div>
+              <div class="area">
+                  <div
+                  class="gambar"
+                  style="background-image: url('asset/produk/aquarium5.jpg')"
+                  ></div>
+                  <div class="text">
+                  <article>
+                      <h4><a href="#">Aa Yuda</a></h4>
+                      <p>
+                      Ikan cantik dan bahenol... pelayanan puas!!
+                      </p>
+                  </article>
+                  </div>
+                  </div>
+              </div>
+          </div>
+          </section>
+        <!-- blog Section end -->
+    </main>
+
+    <!-- footer Section start -->
+    <footer id="Info">
+      <div class="layar-dalam">
+        <div>
+          <h5>Bussines Or Reseller</h5>
+          Email : Gradhifish@gmail.com
+        </div>
+      <div>
+        <h5>Contact</h5>
+        <p>
+        <img style="height: 20px;" src="asset/logo/instagram.jpg"/>
+        Gradhifish.store</p>
+        <p>  
+        <img style="height: 20px;" src="asset/logo/whatsapp.jpg"/>
+        087884996054</p>
+        <p>
+        <img style="height: 20px;" src="asset/logo/tiktok.png"/>
+        grdfsh.official</p>
+    </div>
+    <div>
+      <h5>Info</h5>
+      <br>Kunjungi kami di offline store terdekat</br> JL. Imam Bonjol - UDINUS
+    </div>
+      </div>
+      <div class="layar-dalam">
+      <div class="copyright">&copy; 2024 Gradhifish Indonesia</div>
+      </div>
+      </footer>
+        <!-- footer Section end -->
+        </div>
+  <!-- Menu Section end -->
+
+  <!-- Feather Icons -->
+  <script>
+    feather.replace()
+  </script>
+
+  <!-- My Javascript -->
+  <script src="js/script.js"></script>
+</body>
+
+</html>
